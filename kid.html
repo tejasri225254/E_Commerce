@@ -1,0 +1,405 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>All Products - ShoperStop</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.6.0/css/fontawesome.min.css">
+    <style>
+        /* Add to Cart Button Styles */
+        .add-to-cart-btn {
+            background: #ff523b;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 14px;
+            font-weight: 500;
+            width: 100%;
+            margin: 10px auto;
+            display: block;
+        }
+
+        .add-to-cart-btn:hover {
+            background: #ff2416;
+            transform: scale(1.05);
+        }
+
+        /* Notification Styles */
+        .notification {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: #4CAF50;
+            color: white;
+            padding: 15px 25px;
+            border-radius: 4px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+            display: none;
+            z-index: 1000;
+            animation: slideIn 0.5s ease-out;
+        }
+
+        @keyframes slideIn {
+            from {
+                transform: translateX(100%);
+                opacity: 0;
+            }
+            to {
+                transform: translateX(0);
+                opacity: 1;
+            }
+        }
+
+        /* Cart Counter Styles */
+        .cart-icon {
+            position: relative;
+            cursor: pointer;
+        }
+
+        #cart-count {
+            position: absolute;
+            top: -8px;
+            right: -8px;
+            background: #ff523b;
+            color: white;
+            border-radius: 50%;
+            padding: 2px 8px;
+            font-size: 12px;
+        }
+
+        /* Kids Background Styles */
+        .background-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            overflow: hidden;
+            background: linear-gradient(135deg, #fff6e6 0%, #ffecf7 100%);
+        }
+
+        .kids-icon {
+            position: absolute;
+            opacity: 0.1;
+            animation: floatIcon 15s linear infinite;
+            font-size: 2em;
+        }
+
+        .kids-icon:nth-child(1) {
+            top: 10%;
+            left: 10%;
+            animation-delay: 0s;
+        }
+
+        .kids-icon:nth-child(2) {
+            top: 30%;
+            right: 20%;
+            animation-delay: 3s;
+        }
+
+        .kids-icon:nth-child(3) {
+            bottom: 20%;
+            left: 30%;
+            animation-delay: 6s;
+        }
+
+        .kids-icon:nth-child(4) {
+            bottom: 40%;
+            right: 10%;
+            animation-delay: 9s;
+        }
+
+        .kids-icon:nth-child(5) {
+            top: 50%;
+            left: 50%;
+            animation-delay: 12s;
+        }
+
+        @keyframes floatIcon {
+            0% {
+                transform: translate(0, 0) rotate(0deg) scale(1);
+                opacity: 0.1;
+            }
+            25% {
+                transform: translate(100px, 50px) rotate(90deg) scale(1.2);
+                opacity: 0.2;
+            }
+            50% {
+                transform: translate(50px, 100px) rotate(180deg) scale(1);
+                opacity: 0.1;
+            }
+            75% {
+                transform: translate(-50px, 50px) rotate(270deg) scale(1.2);
+                opacity: 0.2;
+            }
+            100% {
+                transform: translate(0, 0) rotate(360deg) scale(1);
+                opacity: 0.1;
+            }
+        }
+
+        /* Add kids-related icons */
+        .kids-icon::before {
+            content: '🎈';
+        }
+
+        .kids-icon:nth-child(2)::before {
+            content: '🎠';
+        }
+
+        .kids-icon:nth-child(3)::before {
+            content: '🧸';
+        }
+
+        .kids-icon:nth-child(4)::before {
+            content: '🎪';
+        }
+
+        .kids-icon:nth-child(5)::before {
+            content: '🌈';
+        }
+
+        /* Add some playful elements */
+        .rainbow-border {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 5px;
+            background: linear-gradient(to right, 
+                #ff0000, #ff7f00, #ffff00, #00ff00, 
+                #0000ff, #4b0082, #8f00ff);
+        }
+
+        /* Make product cards more kid-friendly */
+        .col-4 {
+            border-radius: 15px;
+            background: rgba(255, 255, 255, 0.9);
+            padding: 15px;
+            transition: all 0.3s ease;
+        }
+
+        .col-4:hover {
+            transform: translateY(-10px) rotate(2deg);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+        }
+
+        .icon {
+            background: linear-gradient(45deg, #FFC107, #FF9800);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            text-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+        }
+    </style>
+</head>
+<body>
+    <!-- Rainbow border at the top -->
+    <div class="rainbow-border"></div>
+
+    <!-- Kids background with floating icons -->
+    <div class="background-container">
+        <div class="kids-icon"></div>
+        <div class="kids-icon"></div>
+        <div class="kids-icon"></div>
+        <div class="kids-icon"></div>
+        <div class="kids-icon"></div>
+    </div>
+
+    <!-- Add back button -->
+    <div class="back-button">
+        <button onclick="goBack()" class="back-btn">
+            ← Back
+        </button>
+    </div>
+
+    <!-- Add this div for notifications -->
+    <div id="notification" class="notification"></div>
+
+    <div class="container">
+        <div class="navbar">
+            <div class="logo">
+                <a href="index.html"><img src="images/logo.png" width="125px"></a>
+            </div>
+            <nav>
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="products.html">Products</a></li>
+                    <li><a href="about.html">About</a></li>
+                    <li><a href="contact.html">Contact</a></li>
+                    <li><a href="account.html">Account</a></li>
+                </ul>
+            </nav>
+            <div class="cart-icon" onclick="openCart()">
+                <a href="cart.html"><img src="images/cart.png" width="30px" height="30px"></a>
+                <span id="cart-count">0</span>
+            </div>
+        </div>
+    </div>
+    
+    <div class="small-container">
+        <div class="row row-2">
+            <h2>All Products</h2>
+            <select>
+                <option>Default Sorting</option>
+                <option>Sort by price</option>
+                <option>Sort by popularity</option>
+                <option>Sort by rating</option>
+                <option>Sort by sale</option>
+            </select>
+        </div>
+        
+        <div class="row">
+            <div class="col-4">
+                <img src="images/kid-p-1.png">
+                <h4>Boys Motif-Detail T-shirt</h4>
+                <div class="rating">
+                    <p class="rat">★★★★☆</p>
+                </div>
+                <p>$90.00</p>
+                <button class="add-to-cart-btn" onclick="addToCart('Boys Motif-Detail T-shirt', 90.00, 'images/kid-p-1.png')">
+                    Add to Cart
+                </button>
+            </div>
+            <div class="col-4">
+                <img src="images/kid-p-2.png">
+                <h4>Girls Checked Top with Trousers</h4>
+                <p class="rat">★★★★★</p>
+                <p>$190.00</p>
+                <button class="add-to-cart-btn" onclick="addToCart('Girls Checked Top with Trousers', 190.00, 'images/kid-p-2.png')">
+                    Add to Cart
+                </button>
+            </div>
+            <div class="col-4">
+                <img src="images/kid-p-3.png">
+                <h4>Non-Allergic Transparent Gear Sword Toy</h4>
+                <p class="rat">★★★☆☆</p>
+                <p>$160.00</p>
+                <button class="add-to-cart-btn" onclick="addToCart('Non-Allergic Transparent Gear Sword Toy', 160.00, 'images/kid-p-3.png')">
+                    Add to Cart
+                </button>
+            </div>
+            <div class="col-4">
+                <img src="images/kid-p-4.png">
+                <h4>Boys Self Design Clogs</h4>
+                <p class="rat">★★★★★</p>
+                <p>$250.00</p>
+                <button class="add-to-cart-btn" onclick="addToCart('Boys Self Design Clogs', 250.00, 'images/kid-p-4.png')">
+                    Add to Cart
+                </button>
+            </div>
+            <div class="col-4">
+                <img src="images/kid-p-5.png">
+                <h4>Girls Mirrored Lens & Gold-Toned Other Sunglasses</h4>
+                <p class="rat">★★★☆☆</p>
+                <p>$250.00</p>
+                <button class="add-to-cart-btn" onclick="addToCart('Girls Mirrored Lens & Gold-Toned Other Sunglasses', 250.00, 'images/kid-p-5.png')">
+                    Add to Cart
+                </button>
+            </div>
+            <div class="col-4">
+                <img src="images/kid-p-6.png">
+                <h4>Boys Embroidered Hooded Sweatshirt</h4>
+                <p class="rat">★★★★☆</p>
+                <p>$500.00</p>
+                <button class="add-to-cart-btn" onclick="addToCart('Boys Embroidered Hooded Sweatshirt', 500.00, 'images/kid-p-6.png')">
+                    Add to Cart
+                </button>
+            </div>
+            <div class="col-4">
+                <img src="images/kid-p-7.png">
+                <h4>Kids Newborn 11-Pcs Printed Pure Cotton Baby Apparel Gift Set</h4>
+                <p class="rat">★★★★☆</p>
+                <p>$100.00</p>
+                <button class="add-to-cart-btn" onclick="addToCart('Kids Newborn 11-Pcs Printed Pure Cotton Baby Apparel Gift Set', 100.00, 'images/kid-p-7.png')">
+                    Add to Cart
+                </button>
+            </div>
+            <div class="col-4">
+                <img src="images/kid-p-8.png">
+                <h4>Grey Organic Cotton 300 GSM Bath Towel</h4>
+                <p class="rat">★★★☆☆</p>
+                <p>$300.00</p>
+                <button class="add-to-cart-btn" onclick="addToCart('Grey Organic Cotton 300 GSM Bath Towel', 300.00, 'images/kid-p-8.png')">
+                    Add to Cart
+                </button>
+            </div>
+            <div class="col-4">
+                <img src="images/kid-p-9.png">
+                <h4>Kids Colourblocked Spider-Man Sneakers</h4>
+                <p class="rat">★★★★★</p>
+                <p>$300.00</p>
+                <button class="add-to-cart-btn" onclick="addToCart('Kids Colourblocked Spider-Man Sneakers', 300.00, 'images/kid-p-9.png')">
+                    Add to Cart
+                </button>
+            </div>
+        </div>
+    </div>
+    
+    <script>
+        // Initialize cart from localStorage
+        let cart = JSON.parse(localStorage.getItem('cart')) || [];
+        
+        // Function to add items to cart
+        function addToCart(name, price, image) {
+            const item = {
+                name: name,
+                price: price,
+                image: image,
+                quantity: 1
+            };
+
+            // Check if item already exists in cart
+            const existingItemIndex = cart.findIndex(cartItem => cartItem.name === name);
+
+            if (existingItemIndex > -1) {
+                cart[existingItemIndex].quantity += 1;
+            } else {
+                cart.push(item);
+            }
+
+            // Save to localStorage
+            localStorage.setItem('cart', JSON.stringify(cart));
+            
+            // Update cart count
+            updateCartCount();
+            
+            // Show notification
+            showNotification(`${name} added to cart!`);
+        }
+
+        // Function to update cart count
+        function updateCartCount() {
+            const cartCount = document.getElementById('cart-count');
+            const totalItems = cart.reduce((sum, item) => sum + item.quantity, 0);
+            cartCount.textContent = totalItems;
+        }
+
+        // Function to show notification
+        function showNotification(message) {
+            const notification = document.getElementById('notification');
+            notification.textContent = message;
+            notification.style.display = 'block';
+            
+            // Hide notification after 2 seconds
+            setTimeout(() => {
+                notification.style.display = 'none';
+            }, 2000);
+        }
+
+        // Initialize cart count on page load
+        document.addEventListener('DOMContentLoaded', () => {
+            updateCartCount();
+        });
+
+        // Add this function for back button
+        function goBack() {
+            window.history.back();
+        }
+    </script>
+</body>
+</html>

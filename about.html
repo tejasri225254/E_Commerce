@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About Us - Shoppers Store</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(135deg, #ffd6d6 0%, #fff 100%);
+            padding: 20px;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+        .about-container {
+            max-width: 800px;
+            width: 100%;
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            text-align: center;
+        }
+        .about-container h2 {
+            margin-bottom: 20px;
+        }
+        .about-container p {
+            margin: 10px 0;
+        }
+        .team {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            margin-top: 20px;
+        }
+        .team-member {
+            background: #f9f9f9;
+            border-radius: 10px;
+            padding: 15px;
+            margin: 10px;
+            width: 200px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            transition: transform 0.3s;
+            display: flex;
+            align-items: center;
+            flex-direction: column;
+            text-align: center;
+        }
+        .team-member:hover {
+            transform: scale(1.05);
+        }
+        .team-member h4 {
+            margin: 10px 0;
+            font-size: 1.2em;
+        }
+        .team-member p {
+            font-size: 0.9em;
+            color: #555;
+            margin: 5px 0;
+        }
+        .icon {
+            font-size: 1.5em;
+            color: #ff523b;
+            margin-bottom: 10px;
+        }
+        .back-button {
+            margin-top: 20px;
+        }
+        .back-button button {
+            background: #ff523b;
+            color: white;
+            border: none;
+            padding: 12px 30px;
+            border-radius: 25px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: background 0.3s;
+        }
+        .back-button button:hover {
+            background: #ff2416;
+        }
+        .background {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle, rgba(255, 255, 255, 0.1), rgba(255, 82, 59, 0.5));
+            animation: moveBackground 10s linear infinite;
+            z-index: -1;
+        }
+        @keyframes moveBackground {
+            0% {
+                background-position: 0% 0%;
+            }
+            100% {
+                background-position: 100% 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="background"></div>
+
+    <div class="about-container">
+        <h2>About Us</h2>
+        <p>Welcome to Shoppers Store, your number one source for all things shopping.</p>
+        <p>We're dedicated to giving you the very best of products, with a focus on dependability, customer service, and uniqueness.</p>
+        <p>Founded in 2020, Shoppers Store has come a long way from its beginnings. When we first started out, our passion for shopping drove us to do tons of research, so that Shoppers Store can offer you the world's most advanced products.</p>
+        <p>We now serve customers all over the world and are thrilled that we're able to turn our passion into our own website.</p>
+        <p>We hope you enjoy our products as much as we enjoy offering them to you.</p>
+
+        <h3>Meet Our Team</h3>
+        <div class="team">
+            <div class="team-member">
+                <span class="icon">👩‍💼</span>
+                <h4>Leela</h4>
+                <p>Chief Executive Officer</p>
+                <p>Oversees the overall operations and strategy of the company.</p>
+            </div>
+            <div class="team-member">
+                <span class="icon">👩‍💻</span>
+                <h4>Tejasri</h4>
+                <p>Marketing Manager</p>
+                <p>Responsible for marketing strategies and brand management.</p>
+            </div>
+            <div class="team-member">
+                <span class="icon">👩‍🔧</span>
+                <h4>Yasaswini</h4>
+                <p>Product Manager</p>
+                <p>Manages product development and ensures quality standards.</p>
+            </div>
+            <div class="team-member">
+                <span class="icon">👩‍💼</span>
+                <h4>Gnaneswari</h4>
+                <p>Customer Support Lead</p>
+                <p>Ensures customer satisfaction and handles inquiries.</p>
+            </div>
+            <div class="team-member">
+                <span class="icon">👩‍💻</span>
+                <h4>Kalyani</h4>
+                <p>Web Developer</p>
+                <p>Responsible for maintaining and improving the website.</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="back-button">
+        <button onclick="goBack()">← Back</button>
+    </div>
+
+    <script>
+        function goBack() {
+            window.history.back();
+        }
+    </script>
+</body>
+</html>

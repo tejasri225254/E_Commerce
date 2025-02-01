@@ -1,0 +1,1319 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shopper Stop</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.6.0/css/fontawesome.min.css">
+    <style>
+        /* Logo Styles */
+        .logo img {
+            width: 150px; /* Adjust the size of the logo */
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            border-radius: 10px; /* Rounded corners for a modern look */
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2); /* Shadow for depth */
+        }
+
+        .logo img:hover {
+            transform: scale(1.1); /* Slightly enlarge on hover */
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3); /* Increase shadow on hover */
+        }
+
+        /* Stylish Bold Text for Starting Slide */
+        .hero-text {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            color: white;
+            text-align: center;
+            font-size: 3em; /* Large font size */
+            font-weight: bold; /* Bold text */
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7); /* Shadow for depth */
+            z-index: 10; /* Ensure it appears above other elements */
+        }
+
+        /* Notification Styles */
+        .notification-popup {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: #af4c4c;
+            color: white;
+            padding: 15px 25px;
+            border-radius: 4px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+            display: none;
+            z-index: 100;
+            animation: slideIn 0.5s ease-out;
+        }
+
+        @keyframes slideIn {
+            from {
+                transform: translateX(100%);
+                opacity: 0;
+            }
+            to {
+                transform: translateX(0);
+                opacity: 1;
+            }
+        }
+
+        /* Logo Splash Animation */
+        .logo-splash {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: #fff;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 9999;
+            animation: fadeOut 2s ease-in-out forwards;
+            animation-delay: 2s;
+        }
+
+        .logo-splash img {
+            width: 200px;
+            animation: scaleLogo 2s ease-in-out;
+        }
+
+        @keyframes fadeOut {
+            from { opacity: 1; visibility: visible; }
+            to { opacity: 0; visibility: hidden; }
+        }
+
+        @keyframes scaleLogo {
+            0% { transform: scale(0); opacity: 0; }
+            50% { transform: scale(1.2); opacity: 0.8; }
+            100% { transform: scale(1); opacity: 1; }
+        }
+
+        /* Standardized Image Dimensions */
+        .featured-img {
+            width: 100%;
+            height: auto;
+            object-fit: contain;
+        }
+
+        .row {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+            padding: 20px 0;
+        }
+
+        .col-4 {
+            flex: 1;
+            min-width: 200px;
+        }
+
+        .featured-img:hover {
+            transform: scale(1.05);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        }
+
+        .category-img {
+            width: 100%;
+            height: 250px;
+            object-fit: cover;
+        }
+
+        .category-img:hover {
+            transform: scale(1.1) rotate(5deg);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+        }
+
+        .brand-img {
+            width: 100%;
+            max-height: 80px;
+            object-fit: contain;
+        }
+
+        /* Testimonial Styles */
+        .testimonial {
+            padding: 40px 0;
+            background: linear-gradient(to bottom right, #fff5f5, #fff);
+            text-align: center;
+        }
+
+        .testimonial-img {
+            width: 180px;
+            height: 150px;
+            object-fit: cover;
+            border-radius: 50%;
+            margin: 10px auto 15px;
+            display: block;
+            transition: transform 0.3s ease, border 0.3s ease;
+            position: relative;
+            z-index: 2;
+        }
+
+        .testimonial-img:hover {
+            transform: scale(1.25);
+            filter: brightness(0.8);
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+            border: 2px solid red;
+            margin: 0 auto;
+        }
+
+        /* Specific style for user-1 */
+        img[src="images/user-1.jpg"] {
+            width: 190px;
+            height: 190px;
+            margin: 15px auto 20px;
+            box-shadow: 0 0 0 3px #ff523b;
+            border: 2px solid #ff523b;
+            border-radius: 50%;
+        }
+
+        img[src="images/user-1.jpg"]:hover {
+            transform: scale(1.25);
+            transition: transform 0.3s ease;
+        }
+
+        /* Specific style for user-2 */
+        img[src="images/user-2.jpg"] {
+            width: 120px;
+            height: 120px;
+            margin: 15px auto 20px;
+            box-shadow: 0 0 0 3px #ff523b;
+            border: 2px solid #ff523b;
+            border-radius: 50%;
+        }
+
+        img[src="images/user-2.jpg"]:hover {
+            transform: none;
+            box-shadow: none;
+        }
+
+        /* Specific style for user-3 */
+        img[src="images/user-3.jpg"] {
+            width: 120px;
+            height: 120px;
+            margin: 15px auto 20px;
+            box-shadow: 0 0 0 3px #ff523b;
+            border: 2px solid #ff523b;
+            border-radius: 50%;
+        }
+
+        @media (max-width: 768px) {
+            .testimonial-img {
+                width: 100px;
+                height: 100px;
+                margin: 10px auto;
+            }
+            img[src="images/user-1.jpg"] {
+                width: 150px;
+                height: 150px;
+            }
+            .testimonial .col-3 {
+                min-height: 250px;
+                padding: 15px 12px 20px;
+            }
+            .featured-img {
+                width: 200px;
+                height: 200px;
+            }
+            .category-img {
+                height: 180px;
+                padding: 10px;
+                width: 70%;
+            }
+            .categories .col-3 {
+                padding: 15px;
+                max-width: 200px;
+                height: 220px;
+            }
+        }
+        @media (max-width: 480px) {
+            .featured-img {
+                height: 180px;
+            }
+        }
+
+        .testimonial .col-3 {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            background: linear-gradient(to bottom, #fff, #fff5f5);
+            padding: 20px 15px 25px;
+            border-radius: 15px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+            min-height: 300px;
+            justify-content: space-between;
+        }
+
+        .testimonial h3 {
+            font-weight: 600;
+            color: #333;
+            margin-top: 8px;
+            font-size: 16px;
+        }
+
+        /* Small Container Image Styles */
+        .small-container img {
+            width: 100%;
+            height: auto;
+        }
+
+        /* Remove standardized col-4 image styles */
+        .col-4 img {
+            width: 100%;
+            height: auto;
+        }
+
+        .small-container .row {
+            display: flex;
+            justify-content: space-between;
+            flex-wrap: nowrap;
+            gap: 20px;
+            padding: 20px 0;
+            overflow-x: auto;
+        }
+
+        .small-container .col-4 {
+            flex: 0 0 calc(25% - 15px);
+            min-width: 200px;
+            padding: 10px;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .small-container .col-4 img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            transition: transform 0.3s ease;
+        }
+
+        /* Add consistent hover effects */
+        .small-container .col-4:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+
+        /* Update media queries for responsiveness */
+        @media (max-width: 768px) {
+            .small-container .row {
+                flex-wrap: nowrap;
+                overflow-x: auto;
+                padding: 20px 0;
+                -webkit-overflow-scrolling: touch;
+            }
+            
+            .small-container .col-4 {
+                flex: 0 0 200px;
+            }
+            
+            .small-container .col-4 img {
+                height: 180px;
+            }
+        }
+
+        /* Remove any specific image styles */
+        img[src="images/gad-4.jpg"] {
+            width: 100%;
+            height: auto;
+        }
+
+        /* Add specific style for pro-1 through pro-4 */
+        img[src="images/pro-1.png"],
+        img[src="images/product-2.jpeg"],
+        img[src="images/product-3.jpeg"],
+        img[src="images/pro-4.png"] {
+            width: 180px;  /* Same dimensions for all */
+            height: 180px;
+            object-fit: contain;
+        }
+
+        /* Hide scrollbar but keep functionality */
+        .small-container .row::-webkit-scrollbar {
+            display: none;
+        }
+
+        .small-container .row {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+
+        /* Product info styling */
+        .col-4 h3, .col-4 h4 {
+            margin: 10px 0;
+            text-align: center;
+            font-size: 16px;
+        }
+
+        .col-4 .rating {
+            margin: 5px 0;
+        }
+
+        .col-4 p {
+            font-weight: bold;
+            color: #ff523b;
+        }
+
+        /* Categories Section Styling */
+        .categories .row {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            gap: 20px;
+            padding: 40px 0;
+        }
+
+        .categories .col-3 {
+            flex: 1;
+            max-width: 200px;
+            min-width: 150px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            background: white;
+            padding: 10px;
+            border-radius: 12px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+            position: relative;
+            height: auto;
+            transition: transform 0.3s ease-in-out;
+        }
+
+        .categories .col-3:first-child {
+            margin-right: 20px;
+        }
+
+        .categories .col-3:hover {
+            transform: scale(1);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+            transition: transform 0.4s ease, box-shadow 0.4s ease;
+        }
+
+        .categories .col-3 a {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 100%;
+            height: 100%;
+        }
+
+        .category-img {
+            width: 80%;
+            height: auto;
+            object-fit: contain;
+            display: block;
+            margin: 0 auto;
+            border-radius: 8px;
+            transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+            background: white;
+            padding: 20px;
+            position: relative;
+        }
+
+        .category-img:hover {
+            transform:matrix(1,0,0,1,0,0);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+        }
+
+        @media (max-width: 768px) {
+            .categories .col-3 {
+                padding: 15px;
+                max-width: 200px;
+                height: 220px;
+            }
+            
+            .category-img {
+                height: 180px;
+                padding: 10px;
+                width: 70%;
+            }
+        }
+
+        /* Modal Styles */
+        .modal {
+            display: none; /* Hidden by default */
+            position: fixed; /* Stay in place */
+            z-index: 1000; /* Sit on top */
+            left: 0;
+            top: 0;
+            width: 100%; /* Full width */
+            height: 100%; /* Full height */
+            overflow: auto; /* Enable scroll if needed */
+            background-color: rgb(0,0,0); /* Fallback color */
+            background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+        }
+
+        .modal-content {
+            background-color: #fefefe;
+            margin: 15% auto; /* 15% from the top and centered */
+            padding: 20px;
+            border: 1px solid #888;
+            width: 80%; /* Could be more or less, depending on screen size */
+        }
+
+        .close {
+            color: #aaa;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+        }
+
+        .close:hover,
+        .close:focus {
+            color: black;
+            text-decoration: none;
+            cursor: pointer;
+        }
+
+        .payment-options button {
+            margin: 10px;
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+
+        /* Login and Register Modals */
+        .login-modal {
+            display: none;
+            position: fixed;
+            z-index: 1001;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+        }
+
+        .login-modal-content {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background-color: white;
+            padding: 20px;
+            border-radius: 10px;
+            width: 300px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        .login-form-group {
+            margin-bottom: 15px;
+        }
+
+        .login-form-group input {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        .login-submit-btn {
+            background: #ff523b;
+            color: white;
+            border: none;
+            padding: 12px 30px;
+            border-radius: 25px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: background 0.3s;
+            width: 100%;
+        }
+
+        .login-submit-btn:hover {
+            background: #ff2416;
+        }
+
+        .register-modal {
+            display: none;
+            position: fixed;
+            z-index: 1002;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+        }
+
+        .register-modal-content {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background-color: white;
+            padding: 20px;
+            border-radius: 10px;
+            width: 300px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        .register-form-group {
+            margin-bottom: 15px;
+        }
+
+        .register-form-group input {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        .register-submit-btn {
+            background: #ff523b;
+            color: white;
+            border: none;
+            padding: 12px 30px;
+            border-radius: 25px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: background 0.3s;
+            width: 100%;
+        }
+
+        .register-submit-btn:hover {
+            background: #ff2416;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+            padding: 20px;
+        }
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center; /* Center items vertically */
+            padding: 10px 20px;
+            background: #fff;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            margin-bottom: 20px;
+        }
+        .logo {
+            font-size: 24px;
+            font-weight: bold;
+            display: flex;
+            align-items: center; /* Center logo vertically */
+        }
+        .cart-info {
+            position: relative;
+            font-size: 18px;
+            display: flex;
+            align-items: center; /* Center cart icon vertically */
+            cursor: pointer; /* Change cursor to pointer */
+        }
+        .cart-icon {
+            font-size: 24px;
+            margin-left: 10px; /* Space between logo and cart icon */
+        }
+        .cart-count {
+            position: absolute;
+            top: -5px;
+            right: -10px;
+            background: red;
+            color: white;
+            border-radius: 50%;
+            padding: 2px 6px;
+            font-size: 12px;
+        }
+
+        .col-3 img {
+            border: none; /* Remove border */
+            width: 100%; /* Ensure images are responsive */
+            height: auto; /* Maintain aspect ratio */
+        }
+    </style>
+</head>
+<body>
+    <div id="loginIcon" style="display: none; position: fixed; top: 10px; right: 10px; z-index: 1000;">
+        <img src="images/login-icon.png" alt="Logged In" style="width: 50px; height: 50px;">
+    </div>
+    <!-- Logo Splash Screen -->
+    <div class="logo-splash">
+        <img src="images/logo.png" alt="ShoperStop Logo">
+    </div>
+
+    <!-- Notification Popup -->
+    <div id="notification-popup" class="notification-popup"></div>
+
+    <div class="header">
+        <div class="floating-shapes">
+            <div class="shape"></div>
+            <div class="shape"></div>
+            <div class="shape"></div>
+        </div>
+        <div class="container">
+            <div class="navbar">
+                <div class="logo">
+                    <a href="index.html"><img src="images/logo.png" alt="Shopper Stop Logo"></a>
+                </div>
+                <nav>
+                    <ul>
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="products.html">Products</a></li>
+                        <li><a href="about.html">About</a></li>
+                        <li><a href="contact.html">Contact</a></li>
+                        <li><a href="account.html">Account</a></li>
+                    </ul>
+                </nav>
+                <div class="cart-info" onclick="window.location.href='cart.html'">
+                    <i class="fas fa-shopping-cart cart-icon"></i>
+                    <span class="cart-count" id="cart-count">0</span>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-2">
+                    <h1>where style meets<br> individuality!</h1>
+                    <p>Unveiling timeless style: Your ultimate destination for fashion inspiration.</p>
+                    <a href="" class="btn">Explore Now &#8594;</a>
+                </div>
+                <div class="col-2">
+                    <img src="images/image-1.jpg" class="fashion-icon" >
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+    
+
+<!------featured categories------>
+<div class="categories">
+    <div class="small-container">
+        <div class="row">
+            <div class="col-3">
+                <a href="men.html">
+                    <img src="images/category-1.png" alt="Men's Category" class="category-img">
+                </a>
+            </div>
+            <div class="col-3">
+                <a href="women.html">
+                    <img src="images/category-2.png" alt="Women's Category" class="category-img">
+                </a>
+            </div>
+            <div class="col-3">
+                <a href="kid.html">
+                    <img src="images/category-3.png" alt="Kids' Category" class="category-img">
+                </a>
+            </div>
+            <div class="col-3">
+                <a href="gadgets.html">
+                    <img src="images/category-4.png" alt="Electronics Category" class="category-img">
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!------featured products------>  
+<div class="small-container">
+    <h2 class="title">Featured Products</h2>
+    <div class="row">
+        <div class="col-4">
+            <img src="images/pro-1.png" alt="Red T-Shirt" class="featured-img">
+            <h4>Red Printed T-Shirt</h4>
+            <div class="rating">
+                <p class="rat">&#9733; &#9733; &#9733; &#9733; &#9734;</p>
+            </div>
+            <p>$140.00</p>
+        </div>
+        <div class="col-4">
+            <img src="images/product-2.jpeg" alt="Old Marigold Dress" class="featured-img">
+            <h3>Mens Watch</h3>
+            <div class="rating">
+                <p class="rat">&#9733; &#9733; &#9733; &#9734; &#9734;</p>
+            </div>
+            <p>$200.00</p>
+        </div>
+        <div class="col-4">
+            <img src="images/product-3.jpeg" alt="Old Marigold Dress" class="featured-img">
+            <h3>Eye Liner</h3>
+            <div class="rating">
+                <p class="rat">&#9733; &#9733; &#9733; &#9733; &#9734;</p>
+            </div>
+            <p>$140.00</p>
+        </div>
+        <div class="col-4">
+            <img src="images/pro-4.png" alt="Old Marigold Dress" class="featured-img">
+            <h3>Boult Z40 Earbuds</h3>
+            <div class="rating">
+                <p class="rat">&#9733; &#9733; &#9733; &#9733; &#9733;</p>
+            </div>
+            <p>$150.00</p>
+        </div>
+    </div>
+    <h2 class="title">Latest Products For Men</h2>
+    <div class="row">
+        <div class="col-4">
+            <img src="images/men-1.jpg" >
+            <h4>Blue Cotton Shirt</h4>
+            <div class="rating">
+                <p class="rat">&#9733; &#9733; &#9733; &#9733; &#9733;</p>
+            </div>
+            <p>$90.00</p>
+        </div>
+        <div class="col-4">
+            <img src="images/men-2.jpg">
+            <h4>Crocodile Green Shirt</h4>
+            <div class="rating">
+                <p class="rat">&#9733; &#9733; &#9733; &#9733; &#9733;</p>
+            </div>
+            <p>$190.00</p>
+        </div>
+        <div class="col-4">
+            <img src="images/men-3.jpg">
+            <h4>Blue Strips Shirt</h4>
+            <div class="rating">
+                <p class="rat">&#9733; &#9733; &#9733; &#9733; &#9733;</p>
+            </div>
+            <p>$160.00</p>
+        </div>
+        <div class="col-4">
+            <img src="images/men-4.jpg">
+            <h4>Stylish Strips Shirt</h4>
+            <div class="rating">
+                <p class="rat">&#9733; &#9733; &#9733; &#9733; &#9733;</p>
+            </div>
+            <p>$250.00</p>
+        </div>
+    </div>
+    <h2 class="title">Latest Products For Women</h2>
+    <div class="row">
+        <div class="col-4">
+            <img src="images/women-1.jpg" alt="Blue Ruffle Shirt" class="featured-img">
+            <h4>Blue Ruffle Shirt</h4>
+            <div class="rating">
+                <p class="rat">&#9733; &#9733; &#9733; &#9733; &#9734;</p>
+            </div>
+            <p>$140.00</p>
+        </div>
+        <div class="col-4">
+            <img src="images/women-2.jpg">
+            <h4>Sharara</h4>
+            <div class="rating">
+                <p class="rat">&#9733; &#9733; &#9733; &#9733; &#9733;</p>
+            </div>
+            <p>$200.00</p>
+        </div>
+        <div class="col-4">
+            <img src="images/women-3.jpg">
+            <h4>Stylish Satin Saree</h4>
+            <div class="rating">
+                <p class="rat">&#9733; &#9733; &#9733; &#9733; &#9733;</p>
+            </div>
+            <p>$300.00</p>
+        </div>
+        <div class="col-4">
+            <img src="images/women-4.jpg">
+            <h4>Olive Lehenga</h4>
+            <div class="rating">
+                <p class="rat">&#9733; &#9733; &#9733; &#9733; &#9734;</p>
+            </div>
+            <p>$500.00</p>
+        </div>
+    </div>
+    <h2 class="title">Latest Products For Kids Wear</h2>
+    <div class="row">
+        <div class="col-4">
+            <img src="images/kid-1.jpg">
+            <h4>Shirt and Pant</h4>
+            <div class="rating">
+                <p class="rat">&#9733; &#9733; &#9733; &#9734; &#9734;</p>
+            </div>
+            <p>$140.00</p>
+        </div>
+        <div class="col-4">
+            <img src="images/kid-2.jpg">
+            <h4>KidsTunic</h4>
+            <div class="rating">
+                <p class="rat">&#9733; &#9733; &#9733; &#9733; &#9734;</p>
+            </div>
+            <p>$200.00</p>
+        </div>
+        <div class="col-4">
+            <img src="images/kid-3.jpg">
+            <h4>Kids Lehenga</h4>
+            <div class="rating">
+                <p class="rat">&#9733; &#9733; &#9733; &#9733; &#9733;</p>
+            </div>
+            <p>$300.00</p>
+        </div>
+        <div class="col-4">
+            <img src="images/kid-4.jpg">
+            <h4>Kids Frock</h4>
+            <div class="rating">
+                <p class="rat">&#9733; &#9733; &#9733; &#9733; &#9733;</p>
+            </div>
+            <p>$500.00</p>
+        </div>
+    </div>
+
+    <h2 class="title">Latest Products For Electronic Gadgets</h2>
+    <div class="row">
+        <div class="col-4">
+            <img src="images/gad-1.jpg">
+            <h4>Head Set </h4>
+            <div class="rating">
+                <p class="rat">&#9733; &#9733; &#9733; &#9734; &#9734;</p>
+            </div>
+            <p>$140.00</p>
+        </div>
+        <div class="col-4">
+            <img src="images/gad-2.jpg">
+            <h4>Ear Ppods</h4>
+            <div class="rating">
+                <p class="rat">&#9733; &#9733; &#9733; &#9733; &#9733;</p>
+            </div>
+            <p>$200.00</p>
+        </div>
+        <div class="col-4">
+            <img src="images/gad-3.jpg">
+            <h4>Smart Watch</h4>
+            <div class="rating">
+                <p class="rat">&#9733; &#9733; &#9733; &#9733; &#9734;</p>
+            </div>
+            <p>$300.00</p>
+        </div>
+        <div class="col-4">
+            <img src="images/gad-4.jpg">
+            <h4>Apple Laptop</h4>
+            <div class="rating">
+                <p class="rat">&#9733; &#9733; &#9733; &#9733; &#9733;</p>
+            </div>
+            <p>$500.00</p>
+        </div>
+    </div>
+</div>
+<!------offer------> 
+<div class="offer">
+    <div class="small-container">
+        <div class="row">
+            <div class="col-2">
+                <img src="images/exclusive.png" class="offer-img">
+            </div>
+            <div class="col-2">
+                <p>Exclusively Available on ShoperStop</p>
+                <h1>Smart Brand 4</h1>
+                <small>The Mi Smart 4 feature a 39.9% larger
+                    (than Mi Brand 3) AMOLED color full-touch display with
+                    adjustable brightness, so everthing is, clear as can be.
+                </small>
+                <a href="" class="btn">Buy Now &#8594;</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!--------testimonial----->
+<div class="testimonial">
+    <div class="small-container">
+        <div class="row">
+            <div class="col-3">
+                <p class="quo">&#8220;</p>
+                <p class="para">Lorem Ipsum is simply dummy text of the printing
+                    and typesetting industry. Lorem Ipsum has been the
+                    industry's standard dummy text ever 
+                </p>
+                <div class="rating">
+                    <p class="rat">&#9733; &#9733; &#9733; &#9733; &#9733;</p>
+                </div>
+                <img src="images/user-1.jpg" class="testimonial-img" alt="Shah Rukh Khan">
+                <h3>Shah Rukh Khan</h3>
+            </div>
+            <div class="col-3">
+                <p class="quo">&#8220;</p>
+                <p class="para">Lorem Ipsum is simply dummy text of the printing
+                    and typesetting industry. Lorem Ipsum has been the
+                    industry's standard dummy text ever 
+                </p>
+                <div class="rating">
+                    <p class="rat">&#9733; &#9733; &#9733; &#9734; &#9734;</p>
+                </div>
+                <img src="images/user-3.jpg" class="testimonial-img" alt="Siddarth">
+                <h3>Siddarth</h3>
+            </div>
+            <div class="col-3">
+                <p class="quo">&#8220;</p>
+                <p class="para">Lorem Ipsum is simply dummy text of the printing
+                    and typesetting industry. Lorem Ipsum has been the
+                    industry's standard dummy text ever 
+                </p>
+                <div class="rating">
+                    <p class="rat">&#9733; &#9733; &#9733; &#9733; &#9734;</p>
+                </div>
+                <img src="images/user-2.jpg" class="testimonial-img" alt="Prabhas">
+                <h3>Prabhas</h3>
+            </div>
+        </div>
+    </div>
+</div>
+<!----brands---->
+<div class="brands">
+    <div class="small-container">
+        <div class="row">
+            <div class="col-5">
+                <img src="images/logo-godrej.png" alt="Godrej" class="brand-img">
+            </div>
+            <div class="col-5">
+                <img src="images/logo-oppo.png">
+            </div>
+            <div class="col-5">
+                <img src="images/logo-coca-cola.png">
+            </div>
+            <div class="col-5">
+                <img src="images/logo-paypal.png">
+            </div>
+            <div class="col-5">
+                <img src="images/logo-philips.png">
+            </div>
+        </div>
+    </div>
+</div>
+<!---------footer---------->
+
+<div class="footer">
+    <div class="container">
+        <div class="row">
+            <div class="footer-col-1">
+                <h3>Download Our App</h3>
+                <p>Download App for Android and ios mobile phone.</p>
+                <div class="app-logo">
+                    <img src="images/play-store.png">
+                    <img src="images/app-store.png">
+                </div>
+            </div>
+            <div class="footer-col-2">
+                <img src="images/logo-white.png" class="lo">
+                <p>Our Purpose Is To Sustainable Make The Please and 
+                    Benefits of Sports Accessible to the Many.
+                </p>
+            </div>
+            <div class="footer-col-3">
+                <h3>Useful Links</h3>
+                <ul>
+                    <li>Coupons</li>
+                    <li>Blog Post</li>
+                    <li>Return Policy</li>
+                    <li>Join Affiliate</li>
+                </ul>
+                <h3>Follow us</h3>
+                <ul>
+                    <li>Facebook</li>
+                    <li>Twitter</li>
+                    <li>Instagram</li>
+                    <li>Youtube</li>
+                </ul>
+            </div>
+        </div>
+        <hr>
+        <p class="copyright">Copyright 2020 - Easy Tutorial</p>
+    </div>
+</div>
+
+<!-- Add this cart sidebar just before the footer -->
+<div class="cart-sidebar" id="cartSidebar">
+    <div class="cart-header">
+        <h2>Shopping Cart</h2>
+        <button onclick="closeCart()" class="close-btn">×</button>
+    </div>
+    <div id="cart-items" class="cart-items">
+        <!-- Cart items will be added here dynamically -->
+    </div>
+    <div class="cart-summary">
+        <div class="total">
+            Total: $<span id="cart-total">0</span>
+        </div>
+        <div class="discount">
+            <input type="text" id="coupon-code" placeholder="Enter coupon code">
+            <button onclick="applyDiscount()">Apply</button>
+            <p id="discount-message" style="color: red;"></p>
+        </div>
+        <div class="final-total">
+            Final Total: $<span id="final-total">0</span>
+        </div>
+        <button onclick="checkout()" class="checkout-btn">Proceed to Checkout</button>
+    </div>
+</div>
+
+<!-- Payment Modal -->
+<div id="paymentModal" class="modal">
+    <div class="modal-content">
+        <span class="close" onclick="closePaymentModal()">&times;</span>
+        <h2>Select Payment Method</h2>
+        <div class="payment-options">
+            <button onclick="processPayment('Credit Card')">Credit Card</button>
+            <button onclick="processPayment('PayPal')">PayPal</button>
+            <button onclick="processPayment('Bank Transfer')">Bank Transfer</button>
+        </div>
+    </div>
+</div>
+
+<!-- Login and Register Modals -->
+<div id="loginModal" class="login-modal">
+    <div class="login-modal-content">
+        <span class="close" onclick="closeLoginModal()">&times;</span>
+        <h2>Login</h2>
+        <div class="login-form-group">
+            <input type="text" id="loginEmail" placeholder="Email" required>
+        </div>
+        <div class="login-form-group">
+            <input type="password" id="loginPassword" placeholder="Password" required>
+        </div>
+        <button class="login-submit-btn" onclick="login()">Login</button>
+    </div>
+</div>
+
+<div id="registerModal" class="register-modal">
+    <div class="register-modal-content">
+        <span class="close" onclick="closeRegisterModal()">&times;</span>
+        <h2>Register</h2>
+        <div class="register-form-group">
+            <input type="text" id="registerName" placeholder="Name" required>
+        </div>
+        <div class="register-form-group">
+            <input type="text" id="registerEmail" placeholder="Email" required>
+        </div>
+        <div class="register-form-group">
+            <input type="password" id="registerPassword" placeholder="Password" required>
+        </div>
+        <button class="register-submit-btn" onclick="register()">Register</button>
+    </div>
+</div>
+
+<!-- Proceed to Checkout Button -->
+<div class="checkout-container">
+    <button id="checkoutButton" onclick="proceedToCheckout()">Proceed to Checkout</button>
+</div>
+
+<!-- Update script to use notification-popup consistently -->
+<script>
+    // Initialize cart from localStorage
+    let cart = JSON.parse(localStorage.getItem('cart')) || [];
+    let discount = 0; // Initialize discount
+
+    // Example coupons and their applicable products
+    const coupons = {
+        'SAVE10': { discount: 10, products: ['product1', 'product2'] }, // 10% discount on specific products
+        'SAVE20': { discount: 20, products: ['product3'] }, // 20% discount on a specific product
+    };
+
+    function updateCartDisplay() {
+        const cartItemsContainer = document.getElementById('cart-items');
+        const cartTotal = document.getElementById('cart-total');
+        const finalTotal = document.getElementById('final-total');
+        cartItemsContainer.innerHTML = ''; // Clear previous items
+        let total = 0;
+
+        cart.forEach(item => {
+            const itemElement = document.createElement('div');
+            itemElement.textContent = `${item.name} - $${item.price}`;
+            cartItemsContainer.appendChild(itemElement);
+            total += item.price;
+        });
+
+        cartTotal.textContent = total.toFixed(2);
+        finalTotal.textContent = (total - discount).toFixed(2); // Update final total
+    }
+
+    function applyDiscount() {
+        const couponCode = document.getElementById('coupon-code').value;
+        const discountMessage = document.getElementById('discount-message');
+        discount = 0; // Reset discount
+
+        if (coupons[couponCode]) {
+            const applicableProducts = coupons[couponCode].products;
+            let totalDiscount = 0;
+
+            cart.forEach(item => {
+                if (applicableProducts.includes(item.id)) { // Check if the product is eligible for the discount
+                    totalDiscount += (item.price * coupons[couponCode].discount) / 100;
+                }
+            });
+
+            if (totalDiscount > 0) {
+                discount = totalDiscount;
+                discountMessage.textContent = `Discount applied: $${discount.toFixed(2)}`;
+                updateCartDisplay(); // Update the cart display to reflect the discount
+            } else {
+                discountMessage.textContent = 'No applicable products for this coupon.';
+            }
+        } else {
+            discountMessage.textContent = 'Invalid coupon code.';
+        }
+    }
+
+    // Update cart display
+    function updateCartDisplay() {
+        const cartItems = document.getElementById('cart-items');
+        const cartCount = document.getElementById('cart-count');
+        
+        // Update cart count
+        const totalItems = cart.reduce((sum, item) => sum + item.quantity, 0);
+        cartCount.textContent = totalItems;
+
+        // Update cart items
+        if (cart.length === 0) {
+            cartItems.innerHTML = '<p class="empty-cart">Your cart is empty</p>';
+        } else {
+            cartItems.innerHTML = cart.map((item, index) => `
+                <div class="cart-item">
+                    <img src="${item.image}" alt="${item.name}">
+                    <div class="item-details">
+                        <h4>${item.name}</h4>
+                        <p class="price">$${item.price.toFixed(2)}</p>
+                        <div class="quantity-controls">
+                            <button onclick="updateQuantity(${index}, ${item.quantity - 1})">-</button>
+                            <span>${item.quantity}</span>
+                            <button onclick="updateQuantity(${index}, ${item.quantity + 1})">+</button>
+                        </div>
+                    </div>
+                    <button onclick="removeFromCart(${index})" class="remove-btn">×</button>
+                </div>
+            `).join('');
+        }
+
+        updateTotal();
+    }
+
+    // Update quantity
+    function updateQuantity(index, newQuantity) {
+        if (newQuantity < 1) {
+            removeFromCart(index);
+        } else {
+            cart[index].quantity = newQuantity;
+            localStorage.setItem('cart', JSON.stringify(cart));
+            updateCartDisplay();
+        }
+    }
+
+    // Remove from cart
+    function removeFromCart(index) {
+        const item = cart[index];
+        cart.splice(index, 1);
+        localStorage.setItem('cart', JSON.stringify(cart));
+        updateCartDisplay();
+        showNotification(`Removed ${item.name} from cart`);
+    }
+
+    // Update total
+    function updateTotal() {
+        const total = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
+        document.getElementById('cart-total').textContent = total.toFixed(2);
+    }
+
+    // Show notification
+    function showNotification(message) {
+        const notification = document.getElementById('notification-popup');
+        notification.textContent = message;
+        notification.style.display = 'block';
+        
+        setTimeout(() => {
+            notification.style.display = 'none';
+        }, 2000);
+    }
+
+    // Cart sidebar functions
+    function openCart() {
+        document.getElementById('cartSidebar').classList.add('open');
+    }
+
+    function closeCart() {
+        document.getElementById('cartSidebar').classList.remove('open');
+    }
+
+    // Checkout function
+    function checkout() {
+        if (cart.length === 0) {
+            alert('Your cart is empty!');
+            return;
+        }
+        // Open payment modal
+        document.getElementById('paymentModal').style.display = 'block';
+    }
+
+    // Close payment modal
+    function closePaymentModal() {
+        document.getElementById('paymentModal').style.display = 'none';
+    }
+
+    // Process payment
+    function processPayment(method) {
+        alert('Payment processed using ' + method);
+        // Here you can add further logic to handle the payment
+        closePaymentModal();
+        // Clear the cart after payment
+        cart = [];
+        localStorage.removeItem('cart');
+        updateCartDisplay();
+    }
+
+    // Initialize cart display
+    updateCartDisplay();
+
+    // Remove splash screen after animation
+    setTimeout(() => {
+        document.querySelector('.logo-splash').style.display = 'none';
+    }, 4000);
+
+    function openLoginModal() {
+        document.getElementById('loginModal').style.display = 'block';
+    }
+
+    function closeLoginModal() {
+        document.getElementById('loginModal').style.display = 'none';
+    }
+
+    function openRegisterModal() {
+        document.getElementById('registerModal').style.display = 'block';
+    }
+
+    function closeRegisterModal() {
+        document.getElementById('registerModal').style.display = 'none';
+    }
+
+    function login() {
+        const email = document.getElementById('loginEmail').value;
+        const password = document.getElementById('loginPassword').value;
+
+        // Here you can add logic to validate the login
+        alert(`Welcome back, ${email}!`);
+        closeLoginModal();
+        showNotification('Login successful! Redirecting to home...');
+
+        // Show the login icon
+        document.getElementById('loginIcon').style.display = 'block';
+
+        // Optionally, you can set a timeout to hide the icon after a few seconds
+        setTimeout(() => {
+            document.getElementById('loginIcon').style.display = 'none';
+            window.location.href = 'index.html'; // Redirect to home page
+        }, 2000); // Icon will disappear after 2 seconds
+    }
+
+    function register() {
+        const name = document.getElementById('registerName').value;
+        const email = document.getElementById('registerEmail').value;
+        const password = document.getElementById('registerPassword').value;
+
+        // Here you can add logic to handle registration
+        alert(`Thank you for registering, ${name}!`);
+        closeRegisterModal();
+        showNotification('Registration successful! Redirecting to home...');
+    }
+
+    // Close modals when clicking outside of them
+    window.onclick = function(event) {
+        if (event.target == document.getElementById('loginModal')) {
+            closeLoginModal();
+        }
+        if (event.target == document.getElementById('registerModal')) {
+            closeRegisterModal();
+        }
+    }
+
+    function proceedToCheckout() {
+        window.location.href = 'address.html'; // Redirect to address page
+    }
+</script>
+
+</body>
+</html>

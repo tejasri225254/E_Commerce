@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>All Products - ShoperStop  </title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.6.0/css/fontawesome.min.css">
+    <style>
+        /* Product Image Styles */
+        .col-4 {
+            padding: 15px;
+            transition: transform 0.3s;
+        }
+
+        .col-4 img {
+            width: 100%;
+            height: 300px;
+            object-fit: contain;
+            border-radius: 8px;
+            background: white;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s;
+            padding: 10px;
+        }
+
+        /* Main Product Image */
+        .single-product .col-4 #ProductImg {
+            height: 500px;
+            padding: 20px;
+        }
+
+        /* Small Product Images */
+        .small-img-row {
+            display: flex;
+            gap: 10px;
+            margin-top: 20px;
+        }
+
+        .small-img-col {
+            flex-basis: 24%;
+        }
+
+        .small-img-col img {
+            height: 120px;
+            cursor: pointer;
+            padding: 5px;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .single-product .col-4 #ProductImg {
+                height: 400px;
+            }
+            .small-img-col img {
+                height: 80px;
+            }
+            .col-4 img {
+                height: 250px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .single-product .col-4 #ProductImg {
+                height: 300px;
+            }
+            .small-img-col img {
+                height: 60px;
+            }
+            .col-4 img {
+                height: 200px;
+            }
+        }
+
+        /* Back Button Styles */
+        .back-button {
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            z-index: 1000;
+        }
+
+        .back-btn {
+            background: linear-gradient(45deg, #ff523b, #ff7563);
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 25px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: all 0.3s ease;
+            box-shadow: 0 3px 10px rgba(255, 82, 59, 0.2);
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .back-btn:hover {
+            transform: translateX(-5px);
+            box-shadow: 0 5px 15px rgba(255, 82, 59, 0.3);
+        }
+
+        /* Responsive design */
+        @media (max-width: 768px) {
+            .back-button {
+                top: 10px;
+                left: 10px;
+            }
+            
+            .back-btn {
+                padding: 8px 15px;
+                font-size: 14px;
+            }
+        }
+    </style>
+</head>
+<body>
+    
+    
+        <div class="container">
+        <div class="navbar">
+            <div class="logo">
+               <a href="index.html"><img src="images/logo.png" width="125px"></a> 
+            </div>
+            <nav>
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="products.html">Products</a></li>
+                    <li><a href="">About</a></li>
+                    <li><a href="">Contact</a></li>
+                    <li><a href="">Account</a></li>
+                </ul>
+            </nav>
+            <img src="images/cart.png" width="40px" height="30px">
+        </div>
+    </div>
+ 
+    <!-- Add back button -->
+    <div class="back-button">
+        <button onclick="goBack()" class="back-btn">
+            ← Back
+        </button>
+    </div>
+
+    <!--------single product details-------->
+    <div class="small-container" class="single-product">
+        <div class="row">
+            <div class="col-4">
+                <img src="images/product-11.png" width="100%" id="ProductImg">
+                <div class="small-img-row">
+                    <div class="small-img-col">
+                        <img src="images/detail-20.png"  height="100%" class="small-img">
+                    </div>
+                    <div class="small-img-col">
+                        <img src="images/product-11.png" width="100%" class="small-img">
+                    </div>
+                    <div class="small-img-col">
+                        <img src="images/detail-21.png" width="100%" class="small-img">
+                    </div>
+                </div>
+
+            </div>
+            <div class="col-4">
+                <p>Home /Gadgets</p>
+                <h1>Baby Moo</h1>
+                  <h4>$30.00</h4>
+               
+                <input type="number" value="1">
+                <a href="" class="btn">Add To Cart</a>
+                <h3>Product Details <i class="fa fa-indent"></i></h3>
+                <br>
+                <p>A kid's cap is a stylish and comfortable accessory designed to protect little ones from the sun. It features fun patterns and adjustable straps for a secure fit.</p>
+                    <p>&#9733; &#9733; &#9733; &#9733; &#9734;</p>
+            </div>
+        </div>
+    </div>
+
+<!------title------>
+    <div class="small-container">
+        <div class="row row-2">
+            <h2>Related Products</h2>
+            <p>View More</p>
+        </div>
+    </div>
+
+<!--------products------->
+<div class="small-container">
+    <div class="row">
+        <div class="col-4">
+            <img src="images/product-1.png">
+            <h4>Pink Kurti</h4>
+            <div class="rating">
+                <p class="rat">&#9733; &#9733; &#9733; &#9733; &#9734;</p>
+            </div>
+            <p>$90.00</p>
+        </div>
+        <div class="col-4">
+            <img src="images/product-2.jpeg">
+            <h4>OLEVS Mens Watch</h4>
+            <div class="rating">
+                <p class="rat">&#9733; &#9733; &#9733; &#9734; &#9734;</p>
+            </div>
+            <p>$190.00</p>
+        </div>
+        <div class="col-4">
+            <img src="images/product-3.jpeg">
+            <h4>Mayballine eyeliner</h4>
+            <div class="rating">
+                <p class="rat">&#9733; &#9733; &#9733; &#9733; &#9733;</p>
+            </div>
+            <p>$160.00</p>
+        </div>
+        <div class="col-4">
+            <img src="images/product-4.png">
+            <h4>Beardo Perfume</h4>
+            <div class="rating">
+                <p class="rat">&#9733; &#9733; &#9733; &#9733; &#9733;</p>
+            </div>
+            <p>$250.00</p>
+            
+        </div>
+        
+    </div>
+   
+</div>
+<!---------footer---------->
+
+<div class="footer">
+    <div class="container">
+        <div class="row">
+            <div class="footer-col-1">
+                <h3>Download Our App</h3>
+                <p>Download App for Android and ios mobile phone.</p>
+                <div class="app-logo">
+                    <img src="images/play-store.png">
+                    <img src="images/app-store.png">
+                </div>
+            </div>
+            <div class="footer-col-2">
+                <img src="images/logo-white.png" class="lo">
+                <p>Our Purpose Is To Sustainable Make The Please and 
+                    Benefits of Sports Accessible to the Many.
+                </p>
+            </div>
+            <div class="footer-col-3">
+                <h3>Useful Links</h3>
+                <ul>
+                    <li>Coupons</li>
+                    <li>Blog Post</li>
+                    <li>Return Policy</li>
+                    <li>Join Affiliate</li>
+                </ul>
+                <h3>Follow us</h3>
+                <ul>
+                    <li>Facebook</li>
+                    <li>Twitter</li>
+                    <li>Instagram</li>
+                    <li>Youtube</li>
+                </ul>
+            </div>
+        </div>
+        <hr>
+        <p class="copyright">Copyright 2020 - Easy Tutorial</p>
+    </div>
+</div>
+
+<!------js for product gallery------>
+<script>
+    var ProductImg = document.getElementById("ProductImg");
+    var SmallImg = document.getElementsByClassName("small-img");
+    SmallImg[0].onclick = function()
+    {
+        ProductImg.src = SmallImg[0].src;
+    }
+    SmallImg[1].onclick = function()
+    {
+        ProductImg.src = SmallImg[1].src;
+    }
+
+    // Back button function
+    function goBack() {
+        window.history.back();
+    }
+</script>
+
+</body>
+</html>

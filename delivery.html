@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Delivery - Shopper Stop</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+            padding: 20px;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            position: relative; /* Position relative for background elements */
+            overflow: hidden; /* Prevent overflow */
+        }
+        .container {
+            max-width: 600px;
+            width: 100%;
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            position: relative; /* Position relative for z-index */
+            z-index: 1; /* Ensure container is above background */
+        }
+        .container h1 {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        .delivery-info {
+            margin: 10px 0;
+        }
+        .back-btn, .home-btn {
+            background: #ff523b;
+            color: white;
+            border: none;
+            padding: 12px 30px;
+            border-radius: 25px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: background 0.3s;
+            display: block;
+            margin: 20px auto;
+        }
+        .back-btn:hover, .home-btn:hover {
+            background: #ff2416;
+        }
+
+        /* Background shapes */
+        .background-shapes {
+            position: fixed;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            z-index: 0; /* Behind the container */
+            overflow: hidden;
+        }
+
+        .shape {
+            position: absolute;
+            background: rgba(255, 82, 59, 0.1);
+            border-radius: 50%;
+            animation: floatShape 8s infinite ease-in-out;
+        }
+
+        .shape:nth-child(1) {
+            width: 200px;
+            height: 200px;
+            top: 10%;
+            left: 5%;
+            animation-delay: 0s;
+        }
+
+        .shape:nth-child(2) {
+            width: 150px;
+            height: 150px;
+            top: 60%;
+            right: 10%;
+            animation-delay: 2s;
+            background: rgba(255, 82, 59, 0.15);
+        }
+
+        .shape:nth-child(3) {
+            width: 100px;
+            height: 100px;
+            top: 30%;
+            right: 30%;
+            animation-delay: 4s;
+            background: rgba(255, 82, 59, 0.08);
+        }
+
+        @keyframes floatShape {
+            0%, 100% {
+                transform: translate(0, 0);
+            }
+            50% {
+                transform: translate(20px, -20px);
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="background-shapes">
+        <div class="shape"></div>
+        <div class="shape"></div>
+        <div class="shape"></div>
+    </div>
+
+    <div class="container">
+        <h1>Delivery Information</h1>
+        <div class="delivery-info">
+            <p><strong>Address:</strong> <span id="delivery-address"></span></p>
+            <p><strong>City:</strong> <span id="delivery-city"></span></p>
+            <p><strong>State:</strong> <span id="delivery-state"></span></p>
+            <p><strong>Zip Code:</strong> <span id="delivery-zip"></span></p>
+        </div>
+        <button class="back-btn" onclick="goBack()">Back to Address</button>
+        <button class="home-btn" onclick="goHome()">Back to Home</button>
+    </div>
+
+    <script>
+        // Function to populate delivery information
+        function populateDeliveryInfo() {
+            // Here you can retrieve and display the delivery information
+            // For now, we will just set some dummy data
+            document.getElementById('delivery-address').textContent = '123 Main St';
+            document.getElementById('delivery-city').textContent = 'Anytown';
+            document.getElementById('delivery-state').textContent = 'CA';
+            document.getElementById('delivery-zip').textContent = '12345';
+        }
+
+        function goBack() {
+            window.history.back(); // Go back to the previous page
+        }
+
+        function goHome() {
+            window.location.href = 'index.html'; // Redirect to home page
+        }
+
+        // Call the function to populate delivery info on page load
+        window.onload = function() {
+            populateDeliveryInfo();
+        };
+    </script>
+</body>
+</html> 
